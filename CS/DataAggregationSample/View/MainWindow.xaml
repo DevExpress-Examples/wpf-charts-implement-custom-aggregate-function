@@ -1,0 +1,56 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:DataAggregationSample.ViewModel"
+        xmlns:view ="clr-namespace:DataAggregationSample.View"
+        xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" 
+        x:Class="DataAggregationSample.View.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="399" Width="656">
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <dxc:ChartControl>
+            <dxc:ChartControl.Legends>
+                <dxc:Legend HorizontalPosition="Left" VerticalPosition="Top" Margin="0" Padding="4" IndentFromDiagram="4"/>
+            </dxc:ChartControl.Legends>
+            <dxc:XYDiagram2D>
+                <!-- region #CustomAggregateFunctionUse-->
+                <dxc:XYDiagram2D.AxisX>
+                    <dxc:AxisX2D x:Name="xAxis" MinorCount="3">
+                        <dxc:AxisX2D.DateTimeScaleOptions>
+                            <dxc:ManualDateTimeScaleOptions AggregateFunction="Custom" 
+                                                            MeasureUnit="Month" 
+                                                            MeasureUnitMultiplier="6">
+                                <dxc:ManualDateTimeScaleOptions.CustomAggregateFunction>
+                                    <view:FinancialAggregateFunction/>
+                                </dxc:ManualDateTimeScaleOptions.CustomAggregateFunction>
+                            </dxc:ManualDateTimeScaleOptions>
+                        </dxc:AxisX2D.DateTimeScaleOptions>
+                    </dxc:AxisX2D>
+                </dxc:XYDiagram2D.AxisX>
+                <!-- endregion #CustomAggregateFunctionUse-->
+                <dxc:XYDiagram2D.AxisY>
+                    <dxc:AxisY2D>
+                        <dxc:AxisY2D.WholeRange>
+                            <dxc:Range dxc:AxisY2D.AlwaysShowZeroLevel="False"/>
+                        </dxc:AxisY2D.WholeRange>
+                    </dxc:AxisY2D>
+                </dxc:XYDiagram2D.AxisY>
+                <dxc:StockSeries2D DisplayName="Eur/Usd Rate"
+                                   DataSource="{Binding Path=CurrencyRates}" 
+                                   ArgumentDataMember="Date" 
+                                   OpenValueDataMember="Value"
+                                   HighValueDataMember="Value"
+                                   LowValueDataMember="Value"
+                                   CloseValueDataMember="Value">
+                    <dxc:StockSeries2D.Model>
+                        <dxc:FlatStock2DModel/>
+                    </dxc:StockSeries2D.Model>
+                </dxc:StockSeries2D>
+            </dxc:XYDiagram2D>
+        </dxc:ChartControl>
+    </Grid>
+</Window>
