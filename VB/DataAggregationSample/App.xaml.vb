@@ -1,4 +1,4 @@
-﻿Imports System
+Imports System
 Imports System.Collections.Generic
 Imports System.Configuration
 Imports System.Data
@@ -7,11 +7,12 @@ Imports System.Threading.Tasks
 Imports System.Windows
 
 Namespace DataAggregationSample
-	''' <summary>
-	''' Interaction logic for App.xaml
-	''' </summary>
-	Partial Public Class App
-		Inherits Application
 
-	End Class
+    ''' <summary>
+    ''' Interaction logic for App.xaml
+    ''' </summary>
+    Public Partial Class App
+        Inherits Application
+
+    End Class
 End Namespace
